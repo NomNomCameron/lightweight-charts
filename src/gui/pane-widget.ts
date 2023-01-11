@@ -664,6 +664,24 @@ export class PaneWidget implements IDestroyable, MouseEventHandlers {
 		return Math.max(0, Math.min(y, this._size.height - 1)) as Coordinate;
 	}
 
+	public setCrosshair(xx: number,yy: number,visible: boolean): void {
+		if (!this._state) {
+			return;
+		}
+		if (visible){
+			const x = xx as Coordinate;
+			const y = yy as Coordinate;
+			this._setCrosshairPosition(x, y);
+		} else {
+			this._state.model().setHoveredSource(null);
+			this._clearCrosshairPosition();
+		}
+  	}
+
+	// private _setCrosshairPositionNoFire(x: Coordinate, y: Coordinate): void {
+	// 	this._model().setAndSaveCurrentPositionFire(this._correctXCoord(x), this._correctYCoord(y), false, ensureNotNull(this._state));
+	// }
+
 	private _setCrosshairPosition(x: Coordinate, y: Coordinate): void {
 		this._model().setAndSaveCurrentPosition(this._correctXCoord(x), this._correctYCoord(y), ensureNotNull(this._state));
 	}
